@@ -126,6 +126,69 @@ export default function LinkedList () {
         return fullString === '' ? 'Empty List' : fullString; // only shows empty list when its truly empty
     }
 
+    function insertAt(value, index) {
+        // create new node
+        const newNode = createNode(value);
+
+        if (index === 0) { // special case: inserting node at 0
+            newNode.next = list;
+            list = newNode;
+            return
+        }
+
+        let current = list; // starts at list, not list.next!
+        let position = 0;
+
+        while (current !== null && position < index - 1) {
+            current = current.next;
+            position++;
+        }
+
+        // If we reached end of list
+        if (current === null) {
+            throw new Error(`Index out of bounds. Please select an Index equal or lower than ${position}`);
+        }
+            // otherwise, insert at correct position
+            newNode.next = current.next;
+            current.next = newNode;
+        }    
+
+
+
+    function removeAt(index) {
+        if (list === null) {
+            throw new Error('Cannot delete. List empty.');
+        }
+
+        // this is in case index 0 is removed:
+        if (index === 0) {
+            const deletedValue = list.value;
+            list = list.next;
+            length--;
+            return deletedValue;
+        }
+
+        let current = list.next;
+        let previous = null;
+        let position = 0;
+
+        while (current != null && position < index) { // traverse
+            previous = current; 
+            current = current.next; 
+            position++;
+        }
+
+        if (current === null) { // for deleting non-existent indexes
+            throw new Error('Index is out of bounds.');
+        }
+
+        previous.next = current.next; // remove node
+        length--; // update length
+
+        // return popped value
+        return current.value;
+    }
+
     return { //expose methods for access
         append,
         prepend,
@@ -136,6 +199,8 @@ export default function LinkedList () {
         pop,
         contains,
         find,
-        toString
+        toString,
+        insertAt,
+        removeAt
     };
 };

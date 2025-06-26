@@ -11,6 +11,9 @@ list.append("hamster");
 list.append("snake");
 list.append("turtle");
 
+list.insertAt('zero', 7);
+list.removeAt(3);
+
 console.log(list.toString());
 
 console.log('=========================');
