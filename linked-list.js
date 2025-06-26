@@ -120,8 +120,9 @@ export default function LinkedList () {
             if (current !== null) {
                 fullString += ' -> '; // adds an arrow to each intersection
             }
-
         }
+
+        fullString += ' -> ( null )'; // gambiarrina
 
         return fullString === '' ? 'Empty List' : fullString; // only shows empty list when its truly empty
     }
